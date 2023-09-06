@@ -1,4 +1,5 @@
 import CreatePost from "@/components/CreatePost";
+import PostFeed from "@/components/PostFeed";
 import { INFINITE_SCROLLLING_PAGINATION_RESULTS } from "@/config";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -27,7 +28,7 @@ const page = async ({ params }: PageProps) => {
           comments: true,
           subgeddit: true,
         },
-        take: INFINITE_SCROLLLING_PAGINATION_RESULTS,
+        take: 10,
       },
     },
   });
@@ -42,7 +43,7 @@ const page = async ({ params }: PageProps) => {
         r/{subgeddit.name}
       </h1>
       <CreatePost session={session} />
-      {/* TODO : Show posts in user feed */}
+      <PostFeed initialPosts={subgeddit.posts} subgedditName={subgeddit.name} />
     </>
   );
 };
