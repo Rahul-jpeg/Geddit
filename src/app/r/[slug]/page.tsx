@@ -28,7 +28,10 @@ const page = async ({ params }: PageProps) => {
           comments: true,
           subgeddit: true,
         },
-        take: 10,
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: INFINITE_SCROLLLING_PAGINATION_RESULTS,
       },
     },
   });
