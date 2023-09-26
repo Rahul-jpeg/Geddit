@@ -14,6 +14,7 @@ const Layout = async ({
   params: { slug: string };
 }) => {
   const session = await getAuthSession();
+  const createPostHref = session ? `r/${slug}/submit` : "/sign-in";
 
   const subgeddit = await db.subgeddit.findFirst({
     where: {
@@ -97,7 +98,7 @@ const Layout = async ({
                 />
               ) : null}
               <Link
-                href={`r/${slug}/submit`}
+                href={createPostHref}
                 className={buttonVariants({
                   variant: "outline",
                   className: "w-full mb-6",

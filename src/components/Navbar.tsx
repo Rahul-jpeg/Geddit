@@ -15,7 +15,7 @@ const Navbar = async () => {
         {/* LOGO */}
         <Link href="/" className="flex gap-2 items-center">
           <Icons.logo className="h-12 w-12 sm:h-9 sm:w-9" />
-          <p className="hidden text-zinc-700 text-sm font-medium md:block">
+          <p className="hidden text-zinc-700 text-md font-semibold md:block">
             Geddit
           </p>
         </Link>

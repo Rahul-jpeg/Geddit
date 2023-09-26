@@ -48,7 +48,7 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
 
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
-          return loginToast;
+          return loginToast();
         }
       }
       return toast({
@@ -74,7 +74,7 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
   });
 
   return (
-    <div className="flex sm:flex-col sm:gap-0 pr-6 sm:q-20 pb-4 sm:pb-0">
+    <div className="flex flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0">
       <Button
         size="sm"
         variant="ghost"
