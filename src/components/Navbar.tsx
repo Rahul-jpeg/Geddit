@@ -4,6 +4,7 @@ import { Icons } from "./Icons";
 import { buttonVariants } from "./ui/Button";
 import { getAuthSession } from "@/lib/auth";
 import UserAccountNav from "./UserAccountNav";
+import SearchBar from "./SearchBar";
 
 // type Props = {}
 
@@ -21,6 +22,7 @@ const Navbar = async () => {
         </Link>
 
         {/* Search bar */}
+        <SearchBar />
         {session ? (
           <UserAccountNav user={session.user} />
         ) : (
