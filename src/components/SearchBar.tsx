@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import {
   Command,
   CommandEmpty,
@@ -12,9 +12,10 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Prisma, Subgeddit } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Users } from "lucide-react";
 import debounce from "lodash.debounce";
+import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 
 interface SearchBarProps {}
 
@@ -25,7 +26,7 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
     data: queryResults,
     refetch,
     isFetched,
-    isFetching,
+    // isFetching,
   } = useQuery({
     queryFn: async () => {
       if (!input) return [];
@@ -47,9 +48,22 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
   }, []);
 
   const router = useRouter();
+  const pathname = usePathname();
+  const commandRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(commandRef, () => {
+    setInput("");
+  });
+
+  useEffect(() => {
+    setInput("");
+  }, [pathname]);
 
   return (
-    <Command className="relative rounded-lg border max-w-50 overflow-visible">
+    <Command
+      ref={commandRef}
+      className="relative rounded-lg border max-w-50 overflow-visible"
+    >
       <CommandInput
         value={input}
         onValueChange={(text) => {
@@ -67,11 +81,13 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
             <CommandGroup heading="Communities">
               {queryResults?.map((subgeddit) => (
                 <CommandItem
+                  className="cursor-pointer"
                   key={subgeddit.id}
                   value={subgeddit.name}
                   onSelect={(e) => {
                     router.push(`/r/${e}`);
                     router.refresh();
+                    setInput("");
                   }}
                 >
                   <Users className="mr-2 h-4 w-4" />
