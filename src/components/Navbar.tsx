@@ -1,10 +1,11 @@
-import Link from "next/link";
-import React from "react";
-import { Icons } from "./Icons";
-import { buttonVariants } from "./ui/Button";
-import { getAuthSession } from "@/lib/auth";
-import UserAccountNav from "./UserAccountNav";
-import SearchBar from "./SearchBar";
+import Link from 'next/link';
+import React from 'react';
+import { Icons } from './Icons';
+import { buttonVariants } from './ui/Button';
+import { getAuthSession } from '@/lib/auth';
+import UserAccountNav from './UserAccountNav';
+import SearchBar from './SearchBar';
+import { cn } from '@/lib/utils';
 
 // type Props = {}
 
@@ -26,7 +27,7 @@ const Navbar = async () => {
         {session ? (
           <UserAccountNav user={session.user} />
         ) : (
-          <Link href="/sign-in" className={buttonVariants()}>
+          <Link href="/sign-in" className={cn(buttonVariants(), 'w-24')}>
             Sign In
           </Link>
         )}
