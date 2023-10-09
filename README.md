@@ -1,1 +1,3 @@
 # GEDDIT
+
+A reddit clone
